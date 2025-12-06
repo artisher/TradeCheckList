@@ -1,21 +1,20 @@
-import { useState } from "react"
-import Header from "../Header/Header"
-import StrategyDetails from "../strategyDetails/strategyDetails"
-import StrategyList from "../StrategyList/StrategyList"
+import { Route, Routes } from "react-router-dom"
+import Home from "../../pages/Home"
+import { Journal } from "../../pages/Journal"
+import History from "../../pages/History"
+import Statistic from "../../pages/Statistic"
 
 
 function App() {
-  const [selected, setSelected] = useState(null)
+
 
   return (
-    <>
-      <div className="backgroundImage px-4 pb-4">
-
-        <Header />
-        <StrategyList onSelect={(item: any) => setSelected(item)} />
-        {selected && <StrategyDetails item={selected} />}
-      </div>
-    </>
+    <Routes>
+      <Route path="/TradeCheckList/" element={<Home />} />
+      <Route path="/TradeCheckList/journal" element={<Journal />} />
+      <Route path="/TradeCheckList/history" element={<History />} />
+      <Route path="/TradeCheckList/statistic" element={<Statistic />} />
+    </Routes>
   )
 }
 
