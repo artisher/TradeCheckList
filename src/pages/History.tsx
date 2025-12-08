@@ -1,4 +1,5 @@
 // Journal.tsx
+import { ChevronDown, ChevronUp, Clock } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -12,7 +13,7 @@ type Trade = {
     setup: string;
     riskReward: string;
     notes: string;
-    result: "Win" | "Loss" ,
+    result: "Win" | "Loss",
 };
 
 export const History = () => {
@@ -59,7 +60,7 @@ export const History = () => {
             </div>
 
             <div>
-                <div className="flex gap-4 mb-4 flex-wrap justify-center">
+                <div className="flex  flex-wrap gap-4 mb-4 justify-center">
                     <select
                         name="pair"
                         value={filter.pair}
@@ -103,28 +104,48 @@ export const History = () => {
                         هیچ تریدی پیدا نشد
                     </div>
                 ) : (
-                    <div className="flex flex-col gap-4">
+                    <div className="flex flex-wrap gap-10 ">
                         {filteredTrades.map((trade, index) => (
                             <div
                                 key={index}
-                                className="border rounded-xl p-4 bg-white shadow hover:shadow-md transition relative"
+                                className={`${trade.result === "Win" ? `bg-green-50` : `bg-red-50 `} flex flex-col justify-center items-center gap-10 pt-10.5  shadow-md border border-gray-200 rounded-xl p-4  w-[75%] mx-auto   hover:shadow-md transition relative`}
+
                             >
+
                                 <button
                                     onClick={() => handleDelete(index)}
-                                    className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 transition"
+                                    className="absolute top-2 right-2 bg-red-400 text-white px-2 py-1 rounded hover:bg-red-500 transition"
                                 >
                                     حذف
                                 </button>
-                                <p><strong>نتیجه:</strong> {trade.result}</p>
-                                <p><strong>تاریخ:</strong> {trade.date}</p>
-                                <p><strong>زمان ورود:</strong> {trade.entryTime}</p>
-                                <p><strong>زمان خروج:</strong> {trade.exitTime}</p>
-                                <p><strong>جفت ارز:</strong> {trade.pair}</p>
-                                <p><strong>تایم فریم:</strong> {trade.timeframe}</p>
-                                <p><strong>نوع ترید:</strong> {trade.type}</p>
-                                <p><strong>ستاپ:</strong> {trade.setup}</p>
-                                <p><strong>R/R:</strong> {trade.riskReward}</p>
-                                <p><strong>نکات:</strong> {trade.notes}</p>
+                                <p><strong>Result:</strong> <span className={` ${trade.result === "Win" ? `text-green-600 font-bold` : `text-red-600 font-bold`}`}>{trade.result}</span></p>
+                                <div className="flex gap-10">
+                                    <p className="text-sm text-gray-600"><strong>زمان ورود:</strong> {trade.entryTime}</p>
+                                    <p className="text-sm text-gray-600"><strong>زمان خروج:</strong> {trade.exitTime}</p>
+                                    <p className="text-sm text-gray-600"><strong>تاریخ:</strong> {trade.date}</p>
+
+                                </div>
+                                <div className="flex gap-10">
+                                    <p><strong> Pair:</strong><span className={`px-2 py-1 font-bold ${trade.pair === "EUR/USD" ? "text-blue-600" : trade.pair === "XAU/USD" ? "text-yellow-400" : "text-pink-500"} text-xs`}>{trade.pair}</span> </p>
+                                    <div className="flex gap-1 items-center">
+                                        <Clock className="w-5 h-5 " />
+                                        <p><strong>Time Frame :</strong> {trade.timeframe}</p>
+
+                                    </div>
+                                    <div className="flex items-center">
+                                        <p><strong>نوع ترید:</strong> {trade.type}</p>
+                                        {trade.type === "Long" ? <ChevronUp className="w-5 h-5 text-gray-600" /> : <ChevronDown className="w-5 h-5 text-gray-600" />}
+                                    </div>
+
+                                </div>
+                                <div className="flex gap-10">
+                                    <p><strong>ستاپ:</strong> {trade.setup}</p>
+                                    <p><strong>R/R:</strong> {trade.riskReward}</p>
+                                    {trade.notes &&
+                                        <p><strong>نکات:</strong> {trade.notes}</p>}
+
+                                </div>
+
                             </div>
                         ))}
                     </div>

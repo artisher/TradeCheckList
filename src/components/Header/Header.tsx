@@ -22,9 +22,9 @@ const Header = () => {
                 <h2 className="text-[14px] w-[50%] font-bold lg:text-3xl">
                     {randomText}
                 </h2>
-                <h2 className="cursor-pointer bg-amber-400 p-5 text-center rounded-2xl">
-                    <Link to={"/TradeCheckList/journal"} className="text-gray-700">Journal</Link>
-                </h2>
+
+                <Link to={"/TradeCheckList/journal"} className="cursor-pointer bg-amber-400 p-5 text-center rounded-2xl text-gray-700">Journal</Link>
+
                 <h2 className="text-xl font-bold lg:text-3xl">
                     <Clock />
                 </h2>
